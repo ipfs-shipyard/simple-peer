@@ -8,7 +8,7 @@
     "url": "https://feross.org"
   },
   "bugs": {
-    "url": "https://github.com/feross/simple-peer/issues"
+    "url": "https://github.com/ipfs-shipyard/simple-peer/issues"
   },
   "dependencies": {
     "debug": "^4.0.1",
@@ -54,7 +54,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/simple-peer.git"
+    "url": "git://github.com/ipfs-shipyard/simple-peer.git"
   },
   "scripts": {
     "build": "browserify -s SimplePeer -r . | minify > simplepeer.min.js",
