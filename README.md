@@ -1,3 +1,7 @@
+# Temporary fork
+
+Forked from https://github.com/feross/simple-peer and released with https://github.com/feross/simple-peer/pull/686 applied.
+
 # simple-peer [![travis][travis-image]][travis-url] [![coveralls][coveralls-image]][coveralls-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url] [![javascript style guide][sauce-image]][sauce-url]
 
 [travis-image]: https://img.shields.io/travis/feross/simple-peer/master.svg
