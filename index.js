@@ -51,7 +51,6 @@ class Peer extends stream.Duplex {
     this.allowHalfTrickle = opts.allowHalfTrickle !== undefined ? opts.allowHalfTrickle : false
     this.iceCompleteTimeout = opts.iceCompleteTimeout || ICECOMPLETE_TIMEOUT
 
-    this.destroyed = false
     this._connected = false
 
     this.remoteAddress = undefined
@@ -391,16 +390,7 @@ class Peer extends stream.Duplex {
     this._isNegotiating = true
   }
 
-  // TODO: Delete this method once readable-stream is updated to contain a default
-  // implementation of destroy() that automatically calls _destroy()
-  // See: https://github.com/nodejs/readable-stream/issues/283
-  destroy (err) {
-    this._destroy(err, () => {})
-  }
-
   _destroy (err, cb) {
-    if (this.destroyed) return
-
     this._debug('destroy (error: %s)', err && (err.message || err))
 
     this.readable = this.writable = false
@@ -408,7 +398,6 @@ class Peer extends stream.Duplex {
     if (!this._readableState.ended) this.push(null)
     if (!this._writableState.finished) this.end()
 
-    this.destroyed = true
     this._connected = false
     this._pcReady = false
     this._channelReady = false
@@ -452,9 +441,7 @@ class Peer extends stream.Duplex {
     this._pc = null
     this._channel = null
 
-    if (err) this.emit('error', err)
-    this.emit('close')
-    cb()
+    cb(err)
   }
 
   _setupData (event) {
@@ -924,7 +911,7 @@ class Peer extends stream.Duplex {
   _onChannelMessage (event) {
     if (this.destroyed) return
     var data = event.data
-    if (data instanceof ArrayBuffer) data = Buffer.from(data)
+    if (data instanceof ArrayBuffer) data = new Uint8Array(data)
     this.push(data)
   }
 
